@@ -6,10 +6,16 @@ use Illuminate\Database\Eloquent\Model;
 
 class Reporte extends Model
 {
+    // protected $guarded = ['id', 'created_at', 'updated_at']; // Alternativo a $fillable
     protected $fillable = [
         'user_id',
         'ubicacion',
         'descripcion',
         'fecha_inicio',
     ];
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 }
