@@ -14,7 +14,9 @@ class ReporteController extends Controller
     public function index()
     {
         return view('reportes.listar-reportes')->with([
-            'reportes' => Reporte::all(),
+            'reportes' => Reporte::where('user_id',  Auth::id())
+                            ->latest()
+                            ->get(),
         ]);
     }
 
@@ -31,12 +33,15 @@ class ReporteController extends Controller
      */
     public function store(Request $request)
     {
-        $reporte = new Reporte();
-        $reporte->user_id = auth()->user()->id; // Auth::user()->id; Auth::id();
-        $reporte->descripcion = $request->descripcion;
-        $reporte->ubicacion = $request->ubicacion;
-        $reporte->fecha_inicio = $request->fecha_inicio;
-        $reporte->save();
+        $request->merge(['user_id' => auth()->user()->id]);
+        Reporte::create($request->all());
+
+        // $reporte = new Reporte();
+        // $reporte->user_id = auth()->user()->id; // Auth::user()->id; Auth::id();
+        // $reporte->descripcion = $request->descripcion;
+        // $reporte->ubicacion = $request->ubicacion;
+        // $reporte->fecha_inicio = $request->fecha_inicio;
+        // $reporte->save();
 
         return redirect()->route('reporte.index');
     }
