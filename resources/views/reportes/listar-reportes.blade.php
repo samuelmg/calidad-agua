@@ -24,7 +24,10 @@
             @foreach ($reportes as $reporte)
                 <tr>
                     <td>{{ $reporte->id }}</td>
-                    <td>{{ $reporte->user_id }}
+                    <td>
+                        {{ $reporte->user->name }} <br>
+                        {{ $reporte->user->email }}
+                    </td>
                     <td>{{ $reporte->ubicacion }}</td>
                     <td>{{ $reporte->folio }}</td>
                     <td>{{ $reporte->created_at }}</td>
