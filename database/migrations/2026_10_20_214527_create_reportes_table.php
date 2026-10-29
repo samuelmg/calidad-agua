@@ -19,6 +19,7 @@ return new class extends Migration
             $table->date('fecha_inicio');
             $table->string('folio')->nullable();
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 
