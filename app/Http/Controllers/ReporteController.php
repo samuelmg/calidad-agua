@@ -52,7 +52,9 @@ class ReporteController extends Controller
      */
     public function show(Reporte $reporte)
     {
-        //
+        return view('reportes.ver-reporte')->with([
+            'reporte' => $reporte,
+        ]);
     }
 
     /**
@@ -60,7 +62,9 @@ class ReporteController extends Controller
      */
     public function edit(Reporte $reporte)
     {
-        //
+        return view('reportes.editar-reporte')->with([
+            'reporte' => $reporte,
+        ]);
     }
 
     /**
@@ -68,7 +72,9 @@ class ReporteController extends Controller
      */
     public function update(Request $request, Reporte $reporte)
     {
-        //
+        $reporte->update($request->only(['ubicacion', 'descripcion', 'fecha_inicio']));
+
+        return redirect()->route('reporte.show', $reporte);
     }
 
     /**
@@ -76,6 +82,8 @@ class ReporteController extends Controller
      */
     public function destroy(Reporte $reporte)
     {
-        //
+        $reporte->delete();
+
+        return redirect()->route('reporte.index');
     }
 }
