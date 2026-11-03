@@ -15,6 +15,7 @@
                 <th>ID</th>
                 <th>Usuario</th>
                 <th>Ubicación</th>
+                <th>Descripción</th>
                 <th>Folio</th>
                 <th>Fecha Creación</th>
                 <th>Acciones</th>
@@ -29,6 +30,7 @@
                         {{ $reporte->user->email }}
                     </td>
                     <td>{{ $reporte->ubicacion }}</td>
+                    <td>{{ $reporte->descripcion }}</td>
                     <td>{{ $reporte->folio }}</td>
                     <td>{{ $reporte->created_at }}</td>
                     <td> -- Acciones: editar / eliminar? -- </td>
