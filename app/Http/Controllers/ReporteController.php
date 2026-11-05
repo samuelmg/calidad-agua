@@ -34,15 +34,14 @@ class ReporteController extends Controller
      */
     public function store(Request $request)
     {
+        $request->validate([
+            'ubicacion' => ['required', 'string', 'max:255', 'min:10',],
+            'descripcion' => 'required|string|max:1000|min:50',
+            'fecha_inicio' => 'required|date|before_or_equal:today',
+        ]);
+
         $request->merge(['user_id' => auth()->user()->id]);
         Reporte::create($request->all());
-
-        // $reporte = new Reporte();
-        // $reporte->user_id = auth()->user()->id; // Auth::user()->id; Auth::id();
-        // $reporte->descripcion = $request->descripcion;
-        // $reporte->ubicacion = $request->ubicacion;
-        // $reporte->fecha_inicio = $request->fecha_inicio;
-        // $reporte->save();
 
         return redirect()->route('reporte.index');
     }

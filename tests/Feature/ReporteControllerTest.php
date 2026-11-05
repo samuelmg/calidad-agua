@@ -36,22 +36,46 @@ test('usuario puede ver formulario para crear un nuevo reporte', function () {
 test('usuario puede crear un nuevo reporte', function () {
     // Dado un usuario
     $user = User::factory()->create();
+    $reporte = Reporte::factory()->recycle($user)->make();
 
     // Cuando el usuario envía un formulario para crear un nuevo reporte
     $response = $this->actingAs($user)
         ->post(route('reporte.store'), [
-            'descripcion' => 'Reporte de prueba',
-            'ubicacion' => 'Ubicación de prueba',
+            'descripcion' => $reporte->descripcion,
+            'ubicacion' => $reporte->ubicacion,
             'fecha_inicio' => now()->toDateString(),
         ]);
 
     // Entonces debería redirigir a la página de reportes y el reporte debería existir en la base de datos
     $response->assertRedirect(route('reporte.index'));
     $this->assertDatabaseHas('reportes', [
-        'descripcion' => 'Reporte de prueba',
-        'ubicacion' => 'Ubicación de prueba',
+        'descripcion' => $reporte->descripcion,
+        'ubicacion' => $reporte->ubicacion,
         'fecha_inicio' => now()->toDateString(),
         'user_id' => $user->id,
+    ]);
+});
+
+test('se valida formulario de creación de reporte', function () {
+    // Dado un usuario
+    $user = User::factory()->create();
+
+    // Cuando el usuario envía un formulario con datos inválidos
+    $response = $this->actingAs($user)
+        ->post(route('reporte.store'), [
+            'descripcion' => 'a', // descripción vacía
+            'ubicacion' => 'b', // ubicación vacía
+            'fecha_inicio' => now()->addDay()->toDateString(), // fecha inválida
+        ]);
+
+    // Entonces debería recibir errores de validación para los campos requeridos y la fecha inválida
+    $response->assertSessionHasErrors(['descripcion', 'ubicacion', 'fecha_inicio']);
+    
+    $this->assertDatabaseMissing('reportes', [
+        'user_id' => $user->id,
+        'descripcion' => 'a',
+        'ubicacion' => 'b',
+        'fecha_inicio' => now()->addDay()->toDateString(),
     ]);
 });
 
