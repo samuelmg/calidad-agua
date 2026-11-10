@@ -9,15 +9,7 @@
 <body>
     <h1>Crea tu reporte de agua</h1>
 
-    @if ($errors->any())
-        <div class="alert alert-danger">
-            <ul>
-                @foreach ($errors->all() as $error)
-                    <li>{{ $error }}</li>
-                @endforeach
-            </ul>
-        </div>
-    @endif
+    <x-errores-formulario />
 
     <form action="{{ route('reporte.store') }}" method="POST">
         @csrf
