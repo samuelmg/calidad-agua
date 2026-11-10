@@ -71,6 +71,12 @@ class ReporteController extends Controller
      */
     public function update(Request $request, Reporte $reporte)
     {
+        $request->validate([
+            'ubicacion' => ['required', 'string', 'max:255', 'min:10',],
+            'descripcion' => 'required|string|max:1000|min:50',
+            'fecha_inicio' => 'required|date|before_or_equal:today',
+        ]);
+
         $reporte->update($request->only(['ubicacion', 'descripcion', 'fecha_inicio']));
 
         return redirect()->route('reporte.show', $reporte);
