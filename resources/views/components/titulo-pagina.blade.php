@@ -1,3 +1,3 @@
-<h1 class="text-3xl font-bold text-gray-900 dark:text-white">
+<h2 class="my-6 text-2xl font-semibold text-gray-700 dark:text-gray-200">
     {{ $slot }}
-</h1>
+</h2>
