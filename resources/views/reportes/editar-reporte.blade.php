@@ -7,7 +7,9 @@
     <title>Editar Reporte</title>
 </head>
 <body>
-    <h1>Editar reporte #{{ $reporte->id }}</h1>
+    <x-titulo-pagina>
+        Editar reporte #{{ $reporte->id }}
+    </x-titulo-pagina>
 
     <x-errores-formulario />
 
