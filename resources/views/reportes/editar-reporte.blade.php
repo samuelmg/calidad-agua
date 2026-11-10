@@ -1,12 +1,4 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Editar Reporte</title>
-</head>
-<body>
+<x-mi-layout>
     <x-titulo-pagina>
         Editar reporte #{{ $reporte->id }}
     </x-titulo-pagina>
@@ -29,5 +21,4 @@
     </form>
 
     <a href="{{ route('reporte.show', $reporte) }}">Cancelar</a>
-</body>
-</html>
+</x-mi-layout>
