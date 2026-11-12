@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\ConfirmacionReporte;
 use App\Models\Reporte;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\Facades\Mail;
 
 class ReporteController extends Controller
 {
@@ -40,7 +42,10 @@ class ReporteController extends Controller
         ]);
 
         $request->merge(['user_id' => auth()->user()->id]);
-        Reporte::create($request->all());
+        $reporte = Reporte::create($request->all());
+
+        Mail::to(auth()->user()->email)
+            ->send(new ConfirmacionReporte($reporte));
 
         return redirect()->route('reporte.index');
     }
