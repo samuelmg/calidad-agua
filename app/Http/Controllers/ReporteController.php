@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Reporte;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
 
 class ReporteController extends Controller
 {
@@ -61,6 +62,8 @@ class ReporteController extends Controller
      */
     public function edit(Reporte $reporte)
     {
+        Gate::authorize('editar-reporte', $reporte);
+
         return view('reportes.editar-reporte')->with([
             'reporte' => $reporte,
         ]);
@@ -71,6 +74,8 @@ class ReporteController extends Controller
      */
     public function update(Request $request, Reporte $reporte)
     {
+        Gate::authorize('editar-reporte', $reporte);
+
         $request->validate([
             'ubicacion' => ['required', 'string', 'max:255', 'min:10',],
             'descripcion' => 'required|string|max:1000|min:50',
