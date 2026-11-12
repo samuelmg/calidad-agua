@@ -29,11 +29,11 @@ class AppServiceProvider extends ServiceProvider
     {
         $this->configureDefaults();
 
-        Gate::define('editar-reporte', function (User $user, Reporte $reporte) {
-            return $user->id === $reporte->user_id
-                ? Response::allow()
-                : Response::deny('No puede editar un reporte de otro usuario.');
-        });
+        // Gate::define('editar-reporte', function (User $user, Reporte $reporte) {
+        //     return $user->id === $reporte->user_id
+        //         ? Response::allow()
+        //         : Response::deny('No puede editar un reporte de otro usuario.');
+        // });
     }
 
     /**

@@ -15,10 +15,8 @@ class ReporteController extends Controller
     public function index()
     {
         return view('reportes.listar-reportes')->with([
-            // 'reportes' => Reporte::where('user_id',  Auth::id())
-            //                 ->latest()
-            //                 ->get(),
-            'reportes' => auth()->user()->reportes->sortByDesc('id'), // Auth::user()->reportes,
+            'reportes' => Reporte::all()->sortByDesc('id'),
+            // 'reportes' => auth()->user()->reportes->sortByDesc('id'), // Auth::user()->reportes,
         ]);
     }
 
@@ -62,7 +60,7 @@ class ReporteController extends Controller
      */
     public function edit(Reporte $reporte)
     {
-        Gate::authorize('editar-reporte', $reporte);
+        Gate::authorize('update', $reporte);
 
         return view('reportes.editar-reporte')->with([
             'reporte' => $reporte,
@@ -74,7 +72,7 @@ class ReporteController extends Controller
      */
     public function update(Request $request, Reporte $reporte)
     {
-        Gate::authorize('editar-reporte', $reporte);
+        Gate::authorize('update', $reporte);
 
         $request->validate([
             'ubicacion' => ['required', 'string', 'max:255', 'min:10',],

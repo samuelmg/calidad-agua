@@ -27,7 +27,11 @@
                     <td>{{ $reporte->descripcion }}</td>
                     <td>{{ $reporte->folio }}</td>
                     <td>{{ $reporte->created_at }}</td>
-                    <td> -- Acciones: editar / eliminar? -- </td>
+                    <td>
+                        @can('update', $reporte)
+                            <a href="{{ route('reporte.edit', $reporte) }}">Editar</a>
+                        @endcan    
+                    </td>
                 </tr>
             @endforeach
         </tbody>
